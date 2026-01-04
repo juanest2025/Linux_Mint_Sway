@@ -266,5 +266,6 @@ bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym Ctrl+Shift+Up   exec brightnessctl set +5%
 bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
 
+exec_always gammastep -O 4500
 
 #
