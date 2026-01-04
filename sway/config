@@ -262,6 +262,9 @@ input * {
 bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
+### BRILLO CON CTRL + SHIFT ###
+bindsym Ctrl+Shift+Up   exec brightnessctl set +5%
+bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
 
 
 #
