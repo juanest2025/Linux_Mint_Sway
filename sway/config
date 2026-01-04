@@ -257,4 +257,11 @@ include /etc/sway/config.d/*
 input * {
     xkb_layout latam
 }
+
+### VOLUMEN CON CTRL + SHIFT ###
+bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+
+
 #
