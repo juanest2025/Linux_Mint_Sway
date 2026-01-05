@@ -1,0 +1,155 @@
+GUÍA COMPLETA — FEDORA SWAY (INTEL) + NIGHT LIGHT + SETUP FINAL
+===============================================================
+
+Objetivo:
+- Usar Sway en Wayland
+- Night-light REAL (gamma)
+- Brillo y volumen con teclas
+- Teclado latino
+- Waybar funcional
+- Setup estable (sin hacks)
+
+Hardware objetivo:
+- GPU Intel (UHD / Iris / HD)
+- Fedora Sway Spin
+
+---------------------------------------------------------------
+1) DESCARGA
+---------------------------------------------------------------
+
+Descargar ISO oficial:
+- Fedora Sway Spin
+
+(NO usar Fedora Workstation, Cinnamon, KDE, etc.)
+
+---------------------------------------------------------------
+2) INSTALACIÓN
+---------------------------------------------------------------
+
+- Arrancar desde USB
+- Instalación normal
+- Particionado automático
+- Crear usuario normal
+- Reiniciar
+
+---------------------------------------------------------------
+3) PRIMER ARRANQUE
+---------------------------------------------------------------
+
+En el login:
+- Seleccionar sesión: Sway
+- Entrar
+
+---------------------------------------------------------------
+4) PAQUETES NECESARIOS
+---------------------------------------------------------------
+
+Abrir terminal y ejecutar:
+
+sudo dnf install -y \
+gammastep \
+brightnessctl \
+pavucontrol \
+pipewire-utils \
+waybar \
+foot \
+wmenu \
+wlsunset
+
+---------------------------------------------------------------
+5) NIGHT LIGHT (FUNCIONA EN FEDORA)
+---------------------------------------------------------------
+
+Prueba manual:
+
+gammastep -O 4800
+
+Valores útiles:
+- 5000 = cálido leve
+- 4800 = recomendado
+- 4200 = noche fuerte
+
+Automático al iniciar Sway:
+Editar:
+~/.config/sway/config
+
+Agregar:
+exec_always gammastep -O 4800
+
+---------------------------------------------------------------
+6) BRILLO CON TECLAS
+---------------------------------------------------------------
+
+En ~/.config/sway/config:
+
+bindsym Ctrl+Shift+Up exec brightnessctl set +5%
+bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
+
+---------------------------------------------------------------
+7) VOLUMEN CON TECLAS
+---------------------------------------------------------------
+
+En ~/.config/sway/config:
+
+bindsym Ctrl+Shift+Right exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym Ctrl+Shift+Left exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+---------------------------------------------------------------
+8) TECLADO LATINO
+---------------------------------------------------------------
+
+En ~/.config/sway/config:
+
+input * {
+    xkb_layout latam
+}
+
+Recargar config:
+Mod + Shift + c
+
+---------------------------------------------------------------
+9) LANZADOR (ALT + SPACE)
+---------------------------------------------------------------
+
+En ~/.config/sway/config:
+
+bindsym Mod1+space exec wmenu-run
+
+---------------------------------------------------------------
+10) WAYBAR
+---------------------------------------------------------------
+
+Ubicación de archivos:
+
+~/.config/waybar/config
+~/.config/waybar/style.css
+
+Reiniciar Waybar:
+
+pkill waybar
+waybar &
+
+---------------------------------------------------------------
+11) NOTAS IMPORTANTES
+---------------------------------------------------------------
+
+- NO usar sudo con gammastep
+- gammastep funciona SOLO dentro de Sway
+- Fedora expone correctamente DRM gamma (Mint NO)
+- Intel + Fedora + Sway = setup estable
+
+---------------------------------------------------------------
+RESULTADO FINAL
+---------------------------------------------------------------
+
+✔ Sway Wayland
+✔ Night-light real
+✔ Brillo con teclas
+✔ Volumen con teclas
+✔ Teclado latino
+✔ Waybar funcional
+✔ Sin errores de gamma
+✔ Sin hacks
+
+FIN
+
