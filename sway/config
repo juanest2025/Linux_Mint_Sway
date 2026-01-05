@@ -32,8 +32,8 @@ smart_borders on
 for_window [title=".*"] title_format ""
 
 # Gaps
-gaps inner 7
-gaps outer 4
+gaps inner 2 
+gaps outer 2 
 smart_gaps on
 
 # Colores de borde (sin azul feo)
@@ -58,7 +58,11 @@ default_floating_border none
 
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+output * bg /home/juanes/Pictures/one.jpg fill
+#
+
 #
 # Example configuration:
 #
@@ -248,7 +252,8 @@ bindsym $mod+r mode "resize"
       #  inactive_workspace #32323200 #32323200 #5c5c5c
    # }
 #}
-exec_always waybar
+exec_always ~/.config/sway/scripts/waybar.sh
+
 
 include /etc/sway/config.d/*
 
@@ -266,6 +271,19 @@ bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym Ctrl+Shift+Up   exec brightnessctl set +5%
 bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
 
-exec_always gammastep -O 4500
+exec_always gammastep -O 3500
+bindsym Ctrl+Shift+l exec swaylock
 
-#
+bindsym Ctrl+Shift+e exec wlogout
+
+## SCREEN SHOTS
+# Screenshot pantalla completa
+bindsym Print exec grim ~/Pictures/screenshot.png
+
+# Screenshot selección
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot.png
+
+# Screenshot selección al portapapeles
+bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy
+
+

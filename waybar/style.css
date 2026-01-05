@@ -40,13 +40,13 @@ window#waybar {
     background: rgba(243, 139, 168, 0.6);
 }
 
-/* === VENTANA ACTIVA === */
+/* === WINDOW TITLE === */
 
 #window {
     color: #a6adc8;
 }
 
-/* === MÓDULOS === */
+/* === MODULOS BASE === */
 
 #pulseaudio,
 #backlight,
@@ -54,29 +54,76 @@ window#waybar {
 #battery,
 #clock,
 #tray {
-    padding: 0 10px;
-    border-radius: 8px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 500;
 }
 
-/* === CLOCK === */
+/* === AUDIO === */
 
-#clock {
+#pulseaudio {
+    background: rgba(137, 180, 250, 0.15);
     color: #89b4fa;
 }
 
-/* === BATTERY === */
+#pulseaudio.muted {
+    background: rgba(243, 139, 168, 0.15);
+    color: #f38ba8;
+}
+
+/* === BRILLO === */
+
+#backlight {
+    background: rgba(249, 226, 175, 0.15);
+    color: #f9e2af;
+}
+
+/* === RED === */
+
+#network {
+    background: rgba(166, 227, 161, 0.15);
+    color: #a6e3a1;
+}
+
+/* === BATERIA === */
 
 #battery {
+    background: rgba(166, 227, 161, 0.15);
     color: #a6e3a1;
+}
+
+#battery.warning {
+    color: #f9e2af;
 }
 
 #battery.critical {
     color: #f38ba8;
 }
 
-/* === AUDIO === */
+/* === CLOCK === */
 
-#pulseaudio.muted {
+#clock {
+    background: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+}
+
+/* === TRAY === */
+
+#tray {
+    background: rgba(180, 190, 254, 0.15);
+}
+
+/* === WLOGOUT BUTTON === */
+
+#custom-wlogout {
+    background: rgba(243, 139, 168, 0.15);
     color: #f38ba8;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+#custom-wlogout:hover {
+    background: rgba(243, 139, 168, 0.3);
 }
 

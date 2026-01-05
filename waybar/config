@@ -13,12 +13,58 @@
   ],
 
   "modules-right": [
+    "custom/wlogout",
     "pulseaudio",
     "backlight",
     "network",
     "battery",
     "clock",
     "tray"
-  ]
+  ],
+
+  "custom/wlogout": {
+    "format": "⏻",
+    "tooltip": "Logout / Power menu",
+    "on-click": "wlogout",
+    "interval": 0
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"]
+  },
+
+  "network": {
+    "format-wifi": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "on-click": "nm-connection-editor"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}"
+  },
+
+  "tray": {
+    "spacing": 8
+  }
 }
 

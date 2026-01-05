@@ -1,155 +1,171 @@
-GUÍA COMPLETA — FEDORA SWAY (INTEL) + NIGHT LIGHT + SETUP FINAL
-===============================================================
+=================================================
+GUÍA DE INSTALACIÓN Y CONFIGURACIÓN SWAY (WAYLAND)
+=================================================
 
-Objetivo:
-- Usar Sway en Wayland
-- Night-light REAL (gamma)
-- Brillo y volumen con teclas
-- Teclado latino
-- Waybar funcional
-- Setup estable (sin hacks)
+Sistema probado:
+- Linux Mint + Sway
+- Wayland
+- Intel UHD Graphics
+- Waybar, Kitty, Wlogout, Swaylock
 
-Hardware objetivo:
-- GPU Intel (UHD / Iris / HD)
-- Fedora Sway Spin
+-------------------------------------------------
+1) PAQUETES ESENCIALES
+-------------------------------------------------
 
----------------------------------------------------------------
-1) DESCARGA
----------------------------------------------------------------
-
-Descargar ISO oficial:
-- Fedora Sway Spin
-
-(NO usar Fedora Workstation, Cinnamon, KDE, etc.)
-
----------------------------------------------------------------
-2) INSTALACIÓN
----------------------------------------------------------------
-
-- Arrancar desde USB
-- Instalación normal
-- Particionado automático
-- Crear usuario normal
-- Reiniciar
-
----------------------------------------------------------------
-3) PRIMER ARRANQUE
----------------------------------------------------------------
-
-En el login:
-- Seleccionar sesión: Sway
-- Entrar
-
----------------------------------------------------------------
-4) PAQUETES NECESARIOS
----------------------------------------------------------------
-
-Abrir terminal y ejecutar:
-
-sudo dnf install -y \
-gammastep \
+sudo apt install \
+sway waybar kitty \
+grim slurp wl-clipboard \
 brightnessctl \
-pavucontrol \
-pipewire-utils \
-waybar \
-foot \
-wmenu \
-wlsunset
+pulseaudio pavucontrol \
+swaylock wlogout \
+gammastep \
+network-manager nm-applet
 
----------------------------------------------------------------
-5) NIGHT LIGHT (FUNCIONA EN FEDORA)
----------------------------------------------------------------
+-------------------------------------------------
+2) CONFIGURACIÓN BASE DE SWAY
+-------------------------------------------------
 
-Prueba manual:
-
-gammastep -O 4800
-
-Valores útiles:
-- 5000 = cálido leve
-- 4800 = recomendado
-- 4200 = noche fuerte
-
-Automático al iniciar Sway:
-Editar:
+Archivo:
 ~/.config/sway/config
 
-Agregar:
-exec_always gammastep -O 4800
+Si no existe:
+mkdir -p ~/.config/sway
+cp /etc/sway/config ~/.config/sway/config
 
----------------------------------------------------------------
-6) BRILLO CON TECLAS
----------------------------------------------------------------
+-------------------------------------------------
+3) ATAJOS IMPORTANTES EN SWAY
+-------------------------------------------------
 
-En ~/.config/sway/config:
+Launcher (Alt + Space):
+bindsym Mod1+space exec wofi --show drun
 
-bindsym Ctrl+Shift+Up exec brightnessctl set +5%
-bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
+Volumen (Ctrl + Shift + ← →):
+bindsym Ctrl+Shift+Left exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
----------------------------------------------------------------
-7) VOLUMEN CON TECLAS
----------------------------------------------------------------
+Brillo (Ctrl + Shift + ↑ ↓):
+bindsym Ctrl+Shift+Up exec brightnessctl set +10%
+bindsym Ctrl+Shift+Down exec brightnessctl set 10%-
 
-En ~/.config/sway/config:
+Bloquear pantalla:
+bindsym $mod+Shift+l exec swaylock
 
-bindsym Ctrl+Shift+Right exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym Ctrl+Shift+Left exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+-------------------------------------------------
+4) SCREENSHOTS EN SWAY (WAYLAND)
+-------------------------------------------------
 
----------------------------------------------------------------
-8) TECLADO LATINO
----------------------------------------------------------------
+Herramientas:
+- grim (captura)
+- slurp (selección)
+- wl-clipboard (portapapeles)
 
-En ~/.config/sway/config:
+Pantalla completa:
+grim ~/Pictures/screenshot.png
 
-input * {
-    xkb_layout latam
-}
+Selección con mouse:
+grim -g "$(slurp)" ~/Pictures/screenshot.png
 
-Recargar config:
-Mod + Shift + c
+Selección → portapapeles:
+grim -g "$(slurp)" - | wl-copy
 
----------------------------------------------------------------
-9) LANZADOR (ALT + SPACE)
----------------------------------------------------------------
+Atajos en sway/config:
 
-En ~/.config/sway/config:
+bindsym Print exec grim ~/Pictures/screenshot.png
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot.png
+bindsym Ctrl+Print exec grim - | wl-copy
+bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy
 
-bindsym Mod1+space exec wmenu-run
+-------------------------------------------------
+5) WAYBAR
+-------------------------------------------------
 
----------------------------------------------------------------
-10) WAYBAR
----------------------------------------------------------------
-
-Ubicación de archivos:
-
+Config:
 ~/.config/waybar/config
 ~/.config/waybar/style.css
 
-Reiniciar Waybar:
+Reiniciar Waybar (script recomendado):
 
-pkill waybar
+Archivo:
+~/.config/sway/scripts/waybar-restart.sh
+
+Contenido:
+#!/bin/bash
+killall waybar
 waybar &
 
----------------------------------------------------------------
-11) NOTAS IMPORTANTES
----------------------------------------------------------------
+Permisos:
+chmod +x ~/.config/sway/scripts/waybar-restart.sh
 
-- NO usar sudo con gammastep
-- gammastep funciona SOLO dentro de Sway
-- Fedora expone correctamente DRM gamma (Mint NO)
-- Intel + Fedora + Sway = setup estable
+En sway/config:
+exec_always ~/.config/sway/scripts/waybar-restart.sh
 
----------------------------------------------------------------
-RESULTADO FINAL
----------------------------------------------------------------
+-------------------------------------------------
+6) BOTÓN WLOGOUT EN WAYBAR
+-------------------------------------------------
 
-✔ Sway Wayland
-✔ Night-light real
-✔ Brillo con teclas
-✔ Volumen con teclas
-✔ Teclado latino
-✔ Waybar funcional
-✔ Sin errores de gamma
-✔ Sin hacks
+Agregar módulo:
+"custom/power"
 
-FIN
+Config:
+"custom/power": {
+  "format": "⏻",
+  "tooltip": "Logout",
+  "on-click": "wlogout"
+}
+
+-------------------------------------------------
+7) BLOQUEO DE PANTALLA (SWAYLOCK)
+-------------------------------------------------
+
+Ejemplo de uso:
+swaylock \
+  --clock \
+  --indicator \
+  --indicator-radius 100 \
+  --indicator-thickness 7
+
+-------------------------------------------------
+8) FILTRO DE LUZ AZUL (FEDORA FUNCIONA MEJOR)
+-------------------------------------------------
+
+Gammastep (solo user, NO sudo):
+gammastep -O 4800
+
+Nota:
+- En Mint puede fallar
+- En Fedora Sway funciona correctamente
+
+-------------------------------------------------
+9) WIFI DESDE WAYBAR
+-------------------------------------------------
+
+Módulo network:
+- Click izquierdo abre nm-connection-editor
+- Gestionado por NetworkManager
+
+-------------------------------------------------
+10) TERMINAL KITTY
+-------------------------------------------------
+
+Config separada:
+- kitty.conf
+- style.conf (colores oscuros + transparencia)
+
+Objetivo:
+- Estilo limpio
+- Negro translúcido
+- Fuente intacta (Nerd Font para ZSH / Powerlevel10k)
+
+-------------------------------------------------
+11) NOTAS FINALES
+-------------------------------------------------
+
+✔ Wayland (no usar herramientas X11)
+✔ No usar sudo para grim / gammastep
+✔ Usar scripts para evitar duplicados
+✔ Configuración minimal y funcional
+
+=================================================
+FIN DE LA GUÍA
+=================================================
 
