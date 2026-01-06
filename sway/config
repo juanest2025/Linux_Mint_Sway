@@ -99,6 +99,17 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
 
+### WORKSPACES CON EL HOMEROW CON ALTGR MOD5
+bindsym Mod5+a workspace number 1
+bindsym Mod5+s workspace number 2
+bindsym Mod5+d workspace number 3
+bindsym Mod5+f workspace number 4
+bindsym Mod5+g workspace number 5
+bindsym Mod5+j workspace number 6
+bindsym Mod5+h workspace number 7
+bindsym Mod5+k workspace number 8
+bindsym Mod5+l workspace number 9
+
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
