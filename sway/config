@@ -168,3 +168,16 @@ bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy
 
 ### NOTIFICACIONES
 exec_always mako
+
+### TRACKPAD (touchpad laptop)
+input type:touchpad {
+    tap enabled              # Tap = click
+    tap_button_map lrm       # 1 dedo izq, 2 der, 3 medio
+    natural_scroll enabled   # Scroll natural
+    scroll_method two_finger # Scroll con dos dedos
+    dwt enabled              # Disable While Typing
+    middle_emulation enabled
+    accel_profile adaptive
+    pointer_accel 0.2
+}
+
