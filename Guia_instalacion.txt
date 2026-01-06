@@ -1,171 +1,247 @@
-=================================================
-GUÍA DE INSTALACIÓN Y CONFIGURACIÓN SWAY (WAYLAND)
-=================================================
+====================================================
+GUÍA COMPLETA DE INSTALACIÓN Y SETUP DE SWAY (WAYLAND)
+====================================================
 
-Sistema probado:
-- Linux Mint + Sway
-- Wayland
-- Intel UHD Graphics
-- Waybar, Kitty, Wlogout, Swaylock
+Sistema objetivo:
+- Linux Mint / Fedora / Arch (válido para cualquiera)
+- Window Manager: SWAY
+- Enfoque: minimal, estable, estético y usable
 
--------------------------------------------------
-1) PAQUETES ESENCIALES
--------------------------------------------------
+----------------------------------------------------
+1. PAQUETES A INSTALAR
+----------------------------------------------------
 
-sudo apt install \
-sway waybar kitty \
-grim slurp wl-clipboard \
-brightnessctl \
-pulseaudio pavucontrol \
-swaylock wlogout \
-gammastep \
-network-manager nm-applet
+CORE:
+- sway
+- waybar
+- kitty
+- wofi
+- wlogout
+- swaylock
+- swayidle
 
--------------------------------------------------
-2) CONFIGURACIÓN BASE DE SWAY
--------------------------------------------------
+UTILIDADES:
+- brightnessctl        (control de brillo)
+- pactl / pipewire     (audio)
+- grim                 (screenshots)
+- slurp                (selección con mouse)
+- wl-copy              (portapapeles)
+- gammastep            (filtro luz azul)
+- network-manager-applet / nm-connection-editor
+- playerctl            (control multimedia)
+- upower               (batería)
+- bluez + blueman      (bluetooth)
 
-Archivo:
-~/.config/sway/config
+INSTALACIÓN (ejemplo Debian/Mint):
+sudo apt install sway waybar kitty wofi wlogout swaylock swayidle \
+brightnessctl grim slurp wl-clipboard gammastep nm-connection-editor \
+playerctl upower blueman
 
-Si no existe:
-mkdir -p ~/.config/sway
-cp /etc/sway/config ~/.config/sway/config
+----------------------------------------------------
+2. ESTRUCTURA DE CONFIGURACIÓN
+----------------------------------------------------
 
--------------------------------------------------
-3) ATAJOS IMPORTANTES EN SWAY
--------------------------------------------------
+~/.config/
+├── sway/
+│   ├── config
+│   └── scripts/
+│       └── waybar.sh
+├── waybar/
+│   ├── config
+│   └── style.css
+├── wofi/
+│   ├── config
+│   └── style.css
+├── kitty/
+│   └── kitty.conf
 
-Launcher (Alt + Space):
-bindsym Mod1+space exec wofi --show drun
-
-Volumen (Ctrl + Shift + ← →):
-bindsym Ctrl+Shift+Left exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-
-Brillo (Ctrl + Shift + ↑ ↓):
-bindsym Ctrl+Shift+Up exec brightnessctl set +10%
-bindsym Ctrl+Shift+Down exec brightnessctl set 10%-
-
-Bloquear pantalla:
-bindsym $mod+Shift+l exec swaylock
-
--------------------------------------------------
-4) SCREENSHOTS EN SWAY (WAYLAND)
--------------------------------------------------
-
-Herramientas:
-- grim (captura)
-- slurp (selección)
-- wl-clipboard (portapapeles)
-
-Pantalla completa:
-grim ~/Pictures/screenshot.png
-
-Selección con mouse:
-grim -g "$(slurp)" ~/Pictures/screenshot.png
-
-Selección → portapapeles:
-grim -g "$(slurp)" - | wl-copy
-
-Atajos en sway/config:
-
-bindsym Print exec grim ~/Pictures/screenshot.png
-bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot.png
-bindsym Ctrl+Print exec grim - | wl-copy
-bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy
-
--------------------------------------------------
-5) WAYBAR
--------------------------------------------------
-
-Config:
-~/.config/waybar/config
-~/.config/waybar/style.css
-
-Reiniciar Waybar (script recomendado):
+----------------------------------------------------
+3. SCRIPT PARA EVITAR WAYBAR DUPLICADO
+----------------------------------------------------
 
 Archivo:
-~/.config/sway/scripts/waybar-restart.sh
+~/.config/sway/scripts/waybar.sh
 
 Contenido:
 #!/bin/bash
-killall waybar
+killall waybar 2>/dev/null
 waybar &
 
-Permisos:
-chmod +x ~/.config/sway/scripts/waybar-restart.sh
+Dar permisos:
+chmod +x ~/.config/sway/scripts/waybar.sh
 
 En sway/config:
-exec_always ~/.config/sway/scripts/waybar-restart.sh
+exec_always ~/.config/sway/scripts/waybar.sh
 
--------------------------------------------------
-6) BOTÓN WLOGOUT EN WAYBAR
--------------------------------------------------
+----------------------------------------------------
+4. ATAJOS IMPORTANTES EN SWAY
+----------------------------------------------------
 
-Agregar módulo:
-"custom/power"
+Terminal:
+Mod + Enter
 
-Config:
-"custom/power": {
-  "format": "⏻",
-  "tooltip": "Logout",
-  "on-click": "wlogout"
-}
+Cerrar ventana:
+Mod + Q
 
--------------------------------------------------
-7) BLOQUEO DE PANTALLA (SWAYLOCK)
--------------------------------------------------
+Launcher (wofi):
+Alt + Space
 
-Ejemplo de uso:
+Bloquear pantalla:
+Ctrl + Shift + L
+
+Logout menu:
+Ctrl + Shift + E
+
+Volumen:
+Ctrl + Shift + Right  (+)
+Ctrl + Shift + Left   (-)
+
+Brillo:
+Ctrl + Shift + Up
+Ctrl + Shift + Down
+
+----------------------------------------------------
+5. SCREENSHOTS (WAYLAND)
+----------------------------------------------------
+
+Pantalla completa:
+Print
+→ guarda en ~/Pictures/screenshot.png
+
+Selección con mouse:
+Shift + Print
+
+Selección al portapapeles:
+Ctrl + Shift + Print
+
+Comandos usados:
+grim
+slurp
+wl-copy
+
+----------------------------------------------------
+6. WAYBAR (FUNCIONALIDADES)
+----------------------------------------------------
+
+Incluye:
+- Workspaces
+- Ventana activa
+- Volumen (estético)
+- Brillo (estético)
+- Batería (upower)
+- Red (botón que abre el WiFi manager)
+- Hora 12h
+- Botón de WLOGOUT
+
+La batería usa:
+upower -i $(upower -e | grep BAT)
+
+----------------------------------------------------
+7. SWAYLOCK
+----------------------------------------------------
+
+Comando usado:
 swaylock \
   --clock \
   --indicator \
   --indicator-radius 100 \
   --indicator-thickness 7
 
--------------------------------------------------
-8) FILTRO DE LUZ AZUL (FEDORA FUNCIONA MEJOR)
--------------------------------------------------
+Atajo:
+Ctrl + Shift + L
 
-Gammastep (solo user, NO sudo):
-gammastep -O 4800
+----------------------------------------------------
+8. WLOGOUT
+----------------------------------------------------
 
-Nota:
-- En Mint puede fallar
-- En Fedora Sway funciona correctamente
+Menú gráfico para:
+- Apagar
+- Reiniciar
+- Logout
+- Suspender
 
--------------------------------------------------
-9) WIFI DESDE WAYBAR
--------------------------------------------------
+Lanzado por:
+- Botón en Waybar
+- Ctrl + Shift + E
 
-Módulo network:
-- Click izquierdo abre nm-connection-editor
-- Gestionado por NetworkManager
+----------------------------------------------------
+9. WOFI (LAUNCHER)
+----------------------------------------------------
 
--------------------------------------------------
-10) TERMINAL KITTY
--------------------------------------------------
+Instalación:
+sudo apt install wofi
 
-Config separada:
-- kitty.conf
-- style.conf (colores oscuros + transparencia)
+Config (~/.config/wofi/config):
+show=drun
+width=500
+height=300
+prompt=Buscar
+insensitive=true
 
-Objetivo:
-- Estilo limpio
-- Negro translúcido
-- Fuente intacta (Nerd Font para ZSH / Powerlevel10k)
+Estilo minimal:
+~/.config/wofi/style.css
+(fondo oscuro, bordes redondeados, selección limpia)
 
--------------------------------------------------
-11) NOTAS FINALES
--------------------------------------------------
+----------------------------------------------------
+10. WEBAPPS (EJ: WHATSAPP WEB)
+----------------------------------------------------
 
-✔ Wayland (no usar herramientas X11)
-✔ No usar sudo para grim / gammastep
-✔ Usar scripts para evitar duplicados
-✔ Configuración minimal y funcional
+NO usar clientes flatpak ❌
+Usar navegador en modo app ✅
 
-=================================================
+Ejemplo con Chromium / Brave:
+
+Comando:
+brave --app=https://web.whatsapp.com
+
+Atajo en sway/config:
+bindsym Mod+Shift+w exec brave --app=https://web.whatsapp.com
+
+Ventaja:
+- Aislado
+- Seguro
+- Sin clientes raros
+- Parece app nativa
+
+----------------------------------------------------
+11. BATERÍA (DURACIÓN Y ESTADO)
+----------------------------------------------------
+
+Paquete:
+upower
+
+Waybar muestra:
+- %
+- Estado (cargando / descargando)
+- Tiempo restante (si está disponible)
+
+----------------------------------------------------
+12. EXTRAS RECOMENDADOS
+----------------------------------------------------
+
+Para hacerlo aún más usable:
+- Clipboard manager: cliphist
+- Notificaciones: mako
+- Gestor de archivos: ranger / thunar
+- Montaje USB: udiskie
+- Bluetooth tray: blueman-applet
+
+----------------------------------------------------
+13. FILOSOFÍA DEL SETUP
+----------------------------------------------------
+
+✔ Minimal pero usable
+✔ Sin cosas innecesarias
+✔ Atajos claros
+✔ Todo controlable por teclado
+✔ Estético sin romper estabilidad
+
+Este setup es:
+- Ideal para estudio
+- Ideal para programación
+- Ideal para uso diario real
+
+====================================================
 FIN DE LA GUÍA
-=================================================
+====================================================
 
