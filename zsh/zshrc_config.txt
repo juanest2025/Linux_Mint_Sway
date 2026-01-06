@@ -135,6 +135,7 @@ alias apagar="shutdown -h 0"
 alias editar="vim .zshrc"
 alias actualizar="bash /home/juanes/comands/update.sh"
 alias ssd="cd /mnt/d"
+alias anime="cd $HOME/Desktop/anime && ranger "
 # restaurar
 alias restore="bash /home/juanes/comands/restore.sh"
 #alias obsidian="zip -r obsidian_backup.zip '/mnt/c/Users/juanes/Documents/second brain' "

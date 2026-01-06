@@ -53,16 +53,16 @@ exec_always /usr/lib/polkit-kde-authentication-agent-1
 ### Key bindings
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-#bindsym Mod1+space exec $menu
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 
 ## APLICACIONES
+bindsym $mod+b exec brave-browser
+bindsym $mod+w exec gtk-launch WebApp-whatsapp5456
 bindsym $mod+e exec nemo 
 bindsym Mod1+space exec wofi --show drun
-bindsym $mod+w exec $HOME/.config/webapps/whatsapp.sh 
 bindsym $mod+o exec flatpak run md.obsidian.Obsidian 
 bindsym $mod+t exec flatpak run org.telegram.desktop
 
@@ -105,8 +105,8 @@ bindsym Mod5+s workspace number 2
 bindsym Mod5+d workspace number 3
 bindsym Mod5+f workspace number 4
 bindsym Mod5+g workspace number 5
-bindsym Mod5+j workspace number 6
-bindsym Mod5+h workspace number 7
+bindsym Mod5+h workspace number 6
+bindsym Mod5+j workspace number 7
 bindsym Mod5+k workspace number 8
 bindsym Mod5+l workspace number 9
 
@@ -122,9 +122,8 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 ### Layout
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout stacking
+bindsym Mod1+Shift+h splith
+bindsym Mod1+Shift+v splitv
 #bindsym $mod+w layout tabbed
 #bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen

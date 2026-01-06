@@ -3,9 +3,9 @@ GUÍA COMPLETA DE INSTALACIÓN Y SETUP DE SWAY (WAYLAND)
 ====================================================
 
 Sistema objetivo:
-- Linux Mint / Fedora / Arch (válido para cualquiera)
+- Linux Mint (principal)
 - Window Manager: SWAY
-- Enfoque: minimal, estable, estético y usable
+- Enfoque: minimal, estable, estético y usable (daily driver)
 
 ----------------------------------------------------
 1. PAQUETES A INSTALAR
@@ -25,14 +25,14 @@ UTILIDADES:
 - pactl / pipewire     (audio)
 - grim                 (screenshots)
 - slurp                (selección con mouse)
-- wl-copy              (portapapeles)
+- wl-clipboard         (wl-copy / wl-paste)
 - gammastep            (filtro luz azul)
-- network-manager-applet / nm-connection-editor
-- playerctl            (control multimedia)
-- upower               (batería)
-- bluez + blueman      (bluetooth)
+- nm-connection-editor (wifi manager)
+- playerctl            (multimedia)
+- upower               (batería / estado de carga)
+- blueman              (bluetooth)
 
-INSTALACIÓN (ejemplo Debian/Mint):
+INSTALACIÓN (Linux Mint / Debian):
 sudo apt install sway waybar kitty wofi wlogout swaylock swayidle \
 brightnessctl grim slurp wl-clipboard gammastep nm-connection-editor \
 playerctl upower blueman
@@ -67,14 +67,14 @@ Contenido:
 killall waybar 2>/dev/null
 waybar &
 
-Dar permisos:
+Permisos:
 chmod +x ~/.config/sway/scripts/waybar.sh
 
 En sway/config:
 exec_always ~/.config/sway/scripts/waybar.sh
 
 ----------------------------------------------------
-4. ATAJOS IMPORTANTES EN SWAY
+4. ATAJOS PRINCIPALES EN SWAY
 ----------------------------------------------------
 
 Terminal:
@@ -89,24 +89,25 @@ Alt + Space
 Bloquear pantalla:
 Ctrl + Shift + L
 
-Logout menu:
+Menú de apagado (wlogout):
 Ctrl + Shift + E
+Botón en Waybar (⏻)
 
 Volumen:
-Ctrl + Shift + Right  (+)
-Ctrl + Shift + Left   (-)
+Ctrl + Shift + Right  (+5%)
+Ctrl + Shift + Left   (-5%)
 
 Brillo:
 Ctrl + Shift + Up
 Ctrl + Shift + Down
 
 ----------------------------------------------------
-5. SCREENSHOTS (WAYLAND)
+5. SCREENSHOTS (WAYLAND + SWAY)
 ----------------------------------------------------
 
 Pantalla completa:
 Print
-→ guarda en ~/Pictures/screenshot.png
+→ ~/Pictures/screenshot.png
 
 Selección con mouse:
 Shift + Print
@@ -115,32 +116,96 @@ Selección al portapapeles:
 Ctrl + Shift + Print
 
 Comandos usados:
-grim
-slurp
-wl-copy
+- grim
+- slurp
+- wl-copy
 
 ----------------------------------------------------
-6. WAYBAR (FUNCIONALIDADES)
+6. WAYBAR (CONFIG FINAL)
 ----------------------------------------------------
 
-Incluye:
-- Workspaces
-- Ventana activa
-- Volumen (estético)
-- Brillo (estético)
-- Batería (upower)
-- Red (botón que abre el WiFi manager)
-- Hora 12h
-- Botón de WLOGOUT
+Características:
+- Barra transparente
+- Secciones separadas (izq / centro / der)
+- Estética sobria (sin colores chillones)
+- Botón de wlogout
+- Volumen y brillo legibles
+- Red como botón (abre wifi manager)
+- Hora en formato 12h
+- Batería con icono de carga
 
-La batería usa:
-upower -i $(upower -e | grep BAT)
+CONFIG WAYBAR (~/.config/waybar/config):
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 6,
+
+  "modules-left": ["sway/workspaces"],
+  "modules-center": ["sway/window"],
+  "modules-right": [
+    "custom/wlogout",
+    "pulseaudio",
+    "backlight",
+    "network",
+    "battery",
+    "clock",
+    "tray"
+  ],
+
+  "custom/wlogout": {
+    "format": "⏻",
+    "tooltip": "Logout / Power menu",
+    "on-click": "wlogout",
+    "interval": 0
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"]
+  },
+
+  "network": {
+    "format-wifi": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "on-click": "nm-connection-editor"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}"
+  },
+
+  "tray": {
+    "spacing": 8
+  }
+}
 
 ----------------------------------------------------
 7. SWAYLOCK
 ----------------------------------------------------
 
-Comando usado:
+Comando:
 swaylock \
   --clock \
   --indicator \
@@ -154,18 +219,18 @@ Ctrl + Shift + L
 8. WLOGOUT
 ----------------------------------------------------
 
-Menú gráfico para:
+Menú gráfico:
 - Apagar
 - Reiniciar
-- Logout
 - Suspender
+- Logout
 
-Lanzado por:
-- Botón en Waybar
+Acceso:
+- Botón ⏻ en Waybar
 - Ctrl + Shift + E
 
 ----------------------------------------------------
-9. WOFI (LAUNCHER)
+9. WOFI (LAUNCHER MINIMAL)
 ----------------------------------------------------
 
 Instalación:
@@ -173,75 +238,70 @@ sudo apt install wofi
 
 Config (~/.config/wofi/config):
 show=drun
-width=500
-height=300
+width=450
+height=280
 prompt=Buscar
 insensitive=true
+no-actions=true
 
-Estilo minimal:
-~/.config/wofi/style.css
-(fondo oscuro, bordes redondeados, selección limpia)
+Estilo:
+- Fondo oscuro
+- Bordes redondeados
+- Selección limpia
+- Minimal
 
 ----------------------------------------------------
-10. WEBAPPS (EJ: WHATSAPP WEB)
+10. WEBAPPS (WHATSAPP WEB)
 ----------------------------------------------------
 
-NO usar clientes flatpak ❌
-Usar navegador en modo app ✅
+No usar clientes flatpak ❌
+Usar webapp con navegador ✅
 
-Ejemplo con Chromium / Brave:
-
-Comando:
+Ejemplo (Brave / Chromium):
 brave --app=https://web.whatsapp.com
 
 Atajo en sway/config:
 bindsym Mod+Shift+w exec brave --app=https://web.whatsapp.com
 
-Ventaja:
-- Aislado
-- Seguro
-- Sin clientes raros
-- Parece app nativa
-
 ----------------------------------------------------
-11. BATERÍA (DURACIÓN Y ESTADO)
+11. BATERÍA
 ----------------------------------------------------
 
 Paquete:
 upower
 
 Waybar muestra:
-- %
-- Estado (cargando / descargando)
-- Tiempo restante (si está disponible)
+- Porcentaje
+- Icono
+- Estado de carga (󰂄 cuando está cargando)
 
 ----------------------------------------------------
 12. EXTRAS RECOMENDADOS
 ----------------------------------------------------
 
-Para hacerlo aún más usable:
-- Clipboard manager: cliphist
 - Notificaciones: mako
-- Gestor de archivos: ranger / thunar
+- Gestor archivos: ranger (con VLC)
 - Montaje USB: udiskie
-- Bluetooth tray: blueman-applet
+- Clipboard manager: cliphist
+- Bluetooth: blueman-applet
 
 ----------------------------------------------------
 13. FILOSOFÍA DEL SETUP
 ----------------------------------------------------
 
-✔ Minimal pero usable
-✔ Sin cosas innecesarias
-✔ Atajos claros
-✔ Todo controlable por teclado
-✔ Estético sin romper estabilidad
+✔ Minimal
+✔ Estable
+✔ Todo con teclado
+✔ Estético sin exagerar
+✔ Ideal para estudio y programación
 
-Este setup es:
-- Ideal para estudio
-- Ideal para programación
-- Ideal para uso diario real
+---------------------------------------------------
+14. APPS EXTRA Q NO ESTAN EL EL REPO DE APT
+---------------------------------------------------
+- instala HomeBrew y descomentalo en el zsh
+- instala neovim (astrovim) y zellij desde HomeBrew
 
 ====================================================
-FIN DE LA GUÍA
+FIN DE LA GUÍA (v2)
 ====================================================
 
