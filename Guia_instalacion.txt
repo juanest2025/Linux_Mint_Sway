@@ -301,6 +301,12 @@ Waybar muestra:
 - instala HomeBrew y descomentalo en el zsh
 - instala neovim (astrovim) y zellij desde HomeBrew
 
+---------------------------------------------------
+15. ARREGLA REPRODUCCION VIDEO DE XWAYLAND
+---------------------------------------------------
+- ejecuta el script q crea los binarios para vlc y
+celluloide para abrirlos desde la terminal
+
 ====================================================
 FIN DE LA GUÍA (v2)
 ====================================================

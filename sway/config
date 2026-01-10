@@ -44,11 +44,22 @@ default_floating_border none
 output * bg /home/juanes/Pictures/one.jpg fill
 
 ### >>> AGREGADO <<< AUTOSTART ESENCIAL
-exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# 🔧 FIX CRÍTICO PARA VLC / AUDIO / WAYLAND
+exec_always dbus-update-activation-environment --systemd \
+    WAYLAND_DISPLAY \
+    XDG_RUNTIME_DIR \
+    XDG_CURRENT_DESKTOP=sway
+
+# 🔊 Asegurar audio (PipeWire + Pulse)
+exec_always systemctl --user enable --now pipewire pipewire-pulse
+
 exec_always nm-applet
 exec_always mako
 exec_always wl-paste --watch cliphist store
 exec_always /usr/lib/polkit-kde-authentication-agent-1
+
+# 🎬 VLC forzado a X11 (CLAVE)
+set $vlc env GDK_BACKEND=x11 QT_QPA_PLATFORM=xcb vlc
 
 ### Key bindings
 bindsym $mod+Return exec $term
@@ -60,12 +71,16 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 
 ## APLICACIONES
 bindsym $mod+b exec brave-browser
+bindsym $mod+z exec ~/.config/obsidian-script/start.sh 
 bindsym $mod+w exec gtk-launch WebApp-whatsapp5456
 bindsym $mod+e exec nemo 
 bindsym $mod+d exec brave-browser --app=https://drive.google.com/drive/my-drive 
 bindsym Mod1+space exec wofi --show drun
 bindsym $mod+o exec flatpak run md.obsidian.Obsidian 
 bindsym $mod+t exec flatpak run org.telegram.desktop
+
+# ▶️ Lanzar VLC correctamente
+bindsym $mod+v exec $vlc
 
 
 ### Focus
@@ -125,8 +140,6 @@ bindsym $mod+Shift+0 move container to workspace number 10
 ### Layout
 bindsym Mod1+Shift+h splith
 bindsym Mod1+Shift+v splitv
-#bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
@@ -182,11 +195,11 @@ exec_always mako
 
 ### TRACKPAD (touchpad laptop)
 input type:touchpad {
-    tap enabled              # Tap = click
-    tap_button_map lrm       # 1 dedo izq, 2 der, 3 medio
-    natural_scroll enabled   # Scroll natural
-    scroll_method two_finger # Scroll con dos dedos
-    dwt enabled              # Disable While Typing
+    tap enabled
+    tap_button_map lrm
+    natural_scroll enabled
+    scroll_method two_finger
+    dwt enabled
     middle_emulation enabled
     accel_profile adaptive
     pointer_accel 0.2

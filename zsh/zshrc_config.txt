@@ -156,18 +156,23 @@ alias r="ranger"
 alias z="zellij"
 alias p="python3"
 alias juan="bash /home/juanes/comands/informatica.sh"
-#alias vim="nvim"
+alias celluloid='GDK_BACKEND=wayland celluloid'
+alias vlc='DISPLAY=:0 vlc --vout=x11'
+alias vim="nvim"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
-#export LIBGL_ALWAYS_INDIRECT=1
-#export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
-#export LIBGL_ALWAYS_INDIRECT=1
-#unset WAYLAND_DISPLAY
-#unset XDG_RUNTIME_DIR
+export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+export LIBGL_ALWAYS_INDIRECT=1
+export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+export LIBGL_ALWAYS_INDIRECT=1
+unset WAYLAND_DISPLAY
+unset XDG_RUNTIME_DIR
 
 
-#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-#export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+#echo $PATH | grep -q "$HOME/.local/bin" && echo "PATH OK" || echo "⚠️ falta ~/.local/bin"
+
