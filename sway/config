@@ -174,8 +174,8 @@ bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym Ctrl+Shift+m exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ### BRILLO
-bindsym Ctrl+Shift+Up   exec brightnessctl set +5%
-bindsym Ctrl+Shift+Down exec brightnessctl set 5%-
+bindsym Ctrl+Shift+Up   exec brightnessctl set +2%
+bindsym Ctrl+Shift+Down exec brightnessctl set 2%-
 
 ### LUZ NOCTURNA
 exec_always gammastep -O 3500
