@@ -5,6 +5,8 @@ sudo apt update && sudo apt upgrade -y
 # entorno de sway
 sudo apt install -y \
 sway waybar kitty wofi wlogout swaylock swayidle
+sudo apt install swaybg -y 
+
 
 # sistema de utilidades
 sudo apt install -y \
