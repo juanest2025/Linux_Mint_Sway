@@ -42,6 +42,7 @@ sudo apt install -y xwayland
 # utilidades del sistemas
 sudo apt install zsh -y 
 sudo apt install zip -y 
+sudo apt install unrar -y
 sudo apt install ranger -y 
 sudo apt install kitty -y 
 sudo apt install gammastep -y 

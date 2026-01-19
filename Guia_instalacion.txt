@@ -307,6 +307,13 @@ Waybar muestra:
 - ejecuta el script q crea los binarios para vlc y
 celluloide para abrirlos desde la terminal
 
+---------------------------------------------------
+16. USO DE URAR PAR DESCOMPRIMIR ARCHIVOS.RAR
+---------------------------------------------------
+-el modo de uso es:
+
+unrar x archivo.rar
+
 ====================================================
 FIN DE LA GUÍA (v2)
 ====================================================
