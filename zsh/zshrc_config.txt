@@ -55,7 +55,7 @@ alias r="ranger"
 alias z="zellij"
 alias p="python3"
 alias juan="bash /home/juanes/comands/informatica.sh"
-alias lvim="vim \$(fzf)"
+alias edit="vim \$(fzf)"
 alias open="xdg-open"
 
 # Multimedia
