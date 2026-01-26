@@ -195,7 +195,8 @@ bindsym Ctrl+Shift+l exec swaylock
 bindsym Ctrl+Shift+e exec wlogout
 
 ### SCREENSHOTS
-bindsym Print exec grim ~/Pictures/screenshot.png
+#bindsym Print exec grim ~/Pictures/screenshot.png
+bindsym Print exec flameshot gui
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot.png
 bindsym Ctrl+Print exec grim - | wl-copy
 bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy

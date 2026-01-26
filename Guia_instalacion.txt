@@ -280,7 +280,7 @@ Waybar muestra:
 ----------------------------------------------------
 
 - Notificaciones: mako
-- Gestor archivos: ranger (con VLC)
+- Gestor archivos: ranger (con VLC) ------> renombrar archivos en con cw y le das el nombre y le dices ok y ya.
 - Montaje USB: udiskie
 - Clipboard manager: cliphist
 - Bluetooth: blueman-applet
