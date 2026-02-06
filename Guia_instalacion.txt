@@ -310,9 +310,14 @@ celluloide para abrirlos desde la terminal
 ---------------------------------------------------
 16. USO DE URAR PAR DESCOMPRIMIR ARCHIVOS.RAR
 ---------------------------------------------------
--el modo de uso es:
+se instala:
+sudo apt install rar -y
+sudo apt install unrar -y 
 
-unrar x archivo.rar
+-el modo de uso es:
+rar a archivos.rar *
+unrar x archivo.rar *
+
 
 ====================================================
 FIN DE LA GUÍA (v2)

@@ -42,6 +42,9 @@ sudo apt install -y xwayland
 # utilidades del sistemas
 sudo apt install zsh -y 
 sudo apt install zip -y 
+sudo apt install rar -y 
+sudo apt install unrar p7zip-full file-roller -y
+sudo apt install nemo-fileroller
 sudo apt install unrar -y
 sudo apt install ranger -y 
 sudo apt install kitty -y 
