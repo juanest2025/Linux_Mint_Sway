@@ -318,6 +318,26 @@ sudo apt install unrar -y
 rar a archivos.rar *
 unrar x archivo.rar *
 
+---------------------------------------------------
+17. REPRODUCTOR DE MUSICA EN TEMRINAL CMUS
+---------------------------------------------------
+se instala:
+sudo apt install cmus -y
+
+y se agrega la lista:
+- :add ~/Music
+
+y asi se usa:
+- + sube el volumen
+- - baja el volumen
+- numeros 1 y 2 muestrasn la lista de canciones de diferente manera
+- C es para pasar ls canciones
+- V es para cancelar la reproduccion de la cancion
+- X reinicia la cancion
+- B es para la siguiente cancion
+- Z es para la cancion anterior 
+- / es para filtrar y buscar la cancion 
+- ENTER  es para reproduccir la cancion actual
 
 ====================================================
 FIN DE LA GUÍA (v2)

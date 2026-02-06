@@ -41,6 +41,8 @@ sudo apt install -y xwayland
 
 # utilidades del sistemas
 sudo apt install zsh -y 
+#para escuchar musica
+sudo apt install cmus -y 
 sudo apt install zip -y 
 sudo apt install rar -y 
 sudo apt install unrar p7zip-full file-roller -y

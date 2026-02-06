@@ -57,9 +57,9 @@ alias p="python3"
 alias juan="bash /home/juanes/comands/informatica.sh"
 alias edit="vim \$(fzf)"
 alias open="xdg-open"
-
-# Multimedia
-alias celluloid="celluloid"
+alias ob="cd $HOME/Documents/Second_Brain && nvim " 
+alias notas="bash $HOME/.config/obsidian-script/notas.sh"
+alias music="cmus"
 alias vlc="vlc"
 
 # Editor
