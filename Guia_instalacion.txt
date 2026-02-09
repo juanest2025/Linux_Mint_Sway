@@ -327,6 +327,10 @@ sudo apt install cmus -y
 y se agrega la lista:
 - :add ~/Music
 
+para actualizar la lista de reproduccion si agragas nuevas canciones, lo que hacer es
+:clean
+: add ~/Music
+
 y asi se usa:
 - + sube el volumen
 - - baja el volumen

@@ -61,7 +61,7 @@ alias ob="cd $HOME/Documents/Second_Brain && nvim "
 alias notas="bash $HOME/.config/obsidian-script/notas.sh"
 alias music="cmus"
 alias vlc="vlc"
-
+alias fzf="$HOME/.config/fzf/script.sh"
 # Editor
 alias vim="nvim"
 
