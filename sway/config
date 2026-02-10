@@ -51,6 +51,7 @@ exec_always dbus-update-activation-environment --systemd \
     XDG_RUNTIME_DIR \
     XDG_CURRENT_DESKTOP=sway
 
+
 # 🔊 Asegurar audio (PipeWire + Pulse)
 exec_always systemctl --user enable --now pipewire pipewire-pulse
 
